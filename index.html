@@ -4,9 +4,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Queens — Logic Mini Game</title>
-  <meta name="description" content="Queens — a LinkedIn-inspired logic mini game. Place X then Queens, solve with unique solutions." />
+  <meta name="description" content="Queens — a LinkedIn-inspired logic mini game with unique puzzles." />
   <style>
-    /* ---------- Design tokens ---------- */
     :root{
       --bg: #0b0f17;
       --panel: rgba(255,255,255,.06);
@@ -22,20 +21,6 @@
       --shadow: 0 10px 30px rgba(0,0,0,.35);
 
       --cell: 56px;
-      --gap: 10px;
-    }
-
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg: #f6f7fb;
-        --panel: rgba(0,0,0,.04);
-        --panel2: rgba(0,0,0,.06);
-        --border: rgba(0,0,0,.10);
-        --text: rgba(0,0,0,.88);
-        --muted: rgba(0,0,0,.62);
-        --muted2: rgba(0,0,0,.48);
-        --shadow: 0 10px 30px rgba(0,0,0,.12);
-      }
     }
 
     *{ box-sizing: border-box; }
@@ -49,60 +34,23 @@
       line-height: 1.45;
     }
 
-    a{ color: inherit; }
-    .container{
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 22px 18px 36px;
-    }
+    .container{ max-width: 1120px; margin: 0 auto; padding: 22px 18px 36px; }
 
-    /* ---------- Header ---------- */
     .top{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 14px;
-      margin-bottom: 16px;
+      display:flex; align-items:flex-end; justify-content:space-between;
+      gap: 14px; margin-bottom: 16px;
     }
-    .brand{
-      display:flex;
-      flex-direction:column;
-      gap: 6px;
-    }
-    .title{
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: .2px;
-      margin: 0;
-      display:flex;
-      align-items:center;
-      gap: 10px;
-    }
+    .brand{ display:flex; flex-direction:column; gap: 6px; }
+    .title{ margin:0; font-size: 22px; font-weight: 800; letter-spacing:.2px; display:flex; gap:10px; align-items:center; }
     .pill{
-      font-size: 12px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: var(--panel2);
-      border: 1px solid var(--border);
-      color: var(--muted);
-      font-weight: 700;
+      font-size: 12px; padding: 4px 10px; border-radius: 999px;
+      background: var(--panel2); border: 1px solid var(--border);
+      color: var(--muted); font-weight: 800;
     }
-    .subtitle{
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-    }
+    .subtitle{ margin:0; color: var(--muted); font-size: 13px; }
 
-    /* ---------- Layout ---------- */
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr 340px;
-      gap: 16px;
-      align-items:start;
-    }
-    @media (max-width: 980px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+    .grid{ display:grid; grid-template-columns: 1fr 340px; gap:16px; align-items:start; }
+    @media (max-width: 980px){ .grid{ grid-template-columns: 1fr; } }
 
     .card{
       background: var(--panel);
@@ -115,66 +63,62 @@
     .cardHeader{
       padding: 14px 14px 12px;
       border-bottom: 1px solid var(--border);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .cardHeader .left{
-      display:flex; flex-direction:column; gap: 4px;
-    }
-    .cardHeader h2{
-      margin:0;
-      font-size: 14px;
-      letter-spacing: .2px;
-    }
-    .cardHeader p{
-      margin:0;
-      font-size: 12px;
-      color: var(--muted);
-    }
+    .cardHeader .left{ display:flex; flex-direction:column; gap:4px; }
+    .cardHeader h2{ margin:0; font-size: 14px; letter-spacing:.2px; }
+    .cardHeader p{ margin:0; font-size: 12px; color: var(--muted); }
 
-    /* ---------- Controls ---------- */
     .controls{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      align-items:center;
+      display:flex; flex-wrap:wrap; gap:10px; align-items:center;
       padding: 12px 14px;
     }
-   .btn, select{
-  appearance:none;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 12px;
-  font-weight: 750;
-  font-size: 13px;
-  cursor: pointer;
-  transition: transform .06s ease, background .15s ease, border-color .15s ease;
-}
 
-/* ✅ select 固定白底黑字，避免看不清楚 */
-select{
-  padding-right: 34px;
-  background: #fff;
-  color: #111;
-  border-color: rgba(0,0,0,.18);
-}
-
-/* option 的樣式在不同瀏覽器支援度不一，但加了通常會更穩 */
-select option{
-  background: #fff;
-  color: #111;
-}
-
-    .split{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    /* Buttons */
+    .btn{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      transition: transform .06s ease, background .15s ease, border-color .15s ease;
     }
+    .btn:hover{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(99,102,241,.70), rgba(61,220,151,.55));
+      border-color: rgba(255,255,255,.18);
+    }
+    .btn.ghost{ background: transparent; }
+    .btn.danger{
+      background: rgba(255,77,77,.10);
+      border-color: rgba(255,77,77,.30);
+      color: #ff6b6b;
+    }
+
+    /* ✅ 深色下拉選單（你要的） */
+    select{
+      appearance:none;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,.35);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 34px 10px 12px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    select:hover{ background: rgba(0,0,0,.45); border-color: rgba(255,255,255,.18); }
+    select option{ background: #0b0f17; color: rgba(255,255,255,.92); }
+
+    .split{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+
     .meta{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      align-items:center;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
       padding: 0 14px 14px;
     }
     .badge{
@@ -184,41 +128,30 @@ select option{
       border-radius: 999px;
       padding: 6px 10px;
       font-size: 12px;
-      font-weight: 750;
-      display:inline-flex;
-      gap: 6px;
-      align-items:center;
+      font-weight: 850;
+      display:inline-flex; gap:6px; align-items:center;
     }
-    .dot{
-      width:8px; height:8px; border-radius:999px; background: var(--muted2);
-    }
+    .dot{ width:8px; height:8px; border-radius:999px; background: var(--muted2); }
     .dot.ok{ background: var(--ok); }
     .dot.bad{ background: var(--danger); }
 
-    /* ---------- Board ---------- */
-    .boardWrap{
-      padding: 14px;
-      display:flex;
-      justify-content:center;
-    }
+    .boardWrap{ padding: 14px; display:flex; justify-content:center; }
+
+    /* ✅ 格線更清楚：用 gap 當線 */
     .board{
-      .board{
-  display:grid;
-  gap: 2px; /* ✅ 線的粗細 */
-  padding: 2px; /* 外框也有線 */
-  border-radius: 16px;
-  border: 1px solid var(--border);
-  background: rgba(255,255,255,.75); /* ✅ 線的顏色（亮） */
-  box-shadow: 0 8px 22px rgba(0,0,0,.18);
-}
-@media (prefers-color-scheme: light){
-  .board{ background: rgba(0,0,0,.18); } /* 淺色模式用深線更清楚 */
-}
+      display:grid;
+      gap: 2px;
+      padding: 2px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.70); /* 線的顏色 */
+      box-shadow: 0 8px 22px rgba(0,0,0,.18);
+      overflow:hidden;
+    }
 
     .cell{
       width: var(--cell);
       height: var(--cell);
-     
       display:grid;
       place-items:center;
       font-size: 24px;
@@ -226,27 +159,19 @@ select option{
       cursor:pointer;
       user-select:none;
       transition: transform .06s ease, filter .15s ease;
+      background: rgba(255,255,255,.04);
     }
     .cell:hover{ filter: brightness(1.04); }
     .cell:active{ transform: scale(.985); }
-
-    .cell.grey{
-      background: rgba(255,255,255,.07);
-    }
-    
+    .cell.grey{ background: rgba(255,255,255,.07); }
     .cell.conflict{
       outline: 3px solid rgba(255,77,77,.85);
       outline-offset: -3px;
       z-index: 1;
     }
 
-    /* ---------- Sidebar ---------- */
     .sideBody{ padding: 14px; }
-    .rule{
-      margin:0 0 10px;
-      color: var(--muted);
-      font-size: 13px;
-    }
+    .rule{ margin:0 0 10px; color: var(--muted); font-size: 13px; }
     .rule strong{ color: var(--text); }
     .kbd{
       font-family: ui-monospace, Menlo, Consolas, monospace;
@@ -259,7 +184,6 @@ select option{
     }
     .mono{ font-family: ui-monospace, Menlo, Consolas, monospace; }
 
-    /* ---------- Toast ---------- */
     .toast{
       position: fixed;
       right: 16px;
@@ -275,22 +199,13 @@ select option{
       opacity: 0;
       pointer-events:none;
       transition: opacity .2s ease, transform .2s ease;
-      font-weight: 750;
+      font-weight: 850;
       font-size: 13px;
       max-width: 86vw;
     }
-    @media (prefers-color-scheme: light){
-      .toast{ background: rgba(255,255,255,.75); color: rgba(0,0,0,.86); }
-    }
     .toast.show{ opacity: 1; transform: translateY(0); }
 
-    /* ---------- Confetti ---------- */
-    .confetti{
-      position: fixed;
-      inset: 0;
-      pointer-events:none;
-      overflow:hidden;
-    }
+    .confetti{ position: fixed; inset: 0; pointer-events:none; overflow:hidden; }
     .confetti i{
       position:absolute;
       width: 10px; height: 14px;
@@ -299,9 +214,7 @@ select option{
       transform: translateY(-20px);
       animation: fall 900ms ease-in forwards;
     }
-    @keyframes fall{
-      to { transform: translateY(105vh) rotate(340deg); opacity: 0.2; }
-    }
+    @keyframes fall{ to { transform: translateY(105vh) rotate(340deg); opacity: 0.2; } }
   </style>
 </head>
 <body>
@@ -322,7 +235,7 @@ select option{
         <div class="cardHeader">
           <div class="left">
             <h2>Play</h2>
-            <p>每題保證唯一解。灰色 👑 會被標紅提醒（不算過關）。</p>
+            <p>每題保證唯一解。灰色 👑 會標紅提醒（不算過關）。</p>
           </div>
           <div class="split">
             <select id="size">
@@ -363,13 +276,11 @@ select option{
           <p class="rule">目標：每行、每列、每個<strong>色塊區域</strong>恰好 1 個 <strong>👑</strong>。</p>
           <p class="rule">限制：任何兩個 <strong>👑</strong> 不能相鄰（包含斜對角）。</p>
           <p class="rule">操作：點一下放 X，點兩下放 👑，再點清空。</p>
-          <p class="rule">提示：灰色格可以用來標記推理，但<strong>灰色👑不算過關</strong>（會標紅）。</p>
-
+          <p class="rule">提示：灰色格可做推理，但<strong>灰色👑不算過關</strong>（會標紅）。</p>
           <div style="height:10px"></div>
           <p class="rule mono">👑座標：<span id="posText"></span></p>
-
           <div style="height:10px"></div>
-          <p class="rule">小快捷鍵（可選）：<span class="kbd">N</span> 新題、<span class="kbd">C</span> 清空、<span class="kbd">K</span> 檢查。</p>
+          <p class="rule">快捷鍵：<span class="kbd">N</span> 新題、<span class="kbd">C</span> 清空、<span class="kbd">K</span> 檢查。</p>
         </div>
       </div>
     </div>
@@ -380,7 +291,6 @@ select option{
 
 <script>
 (() => {
-  /* ===================== RNG ===================== */
   function mulberry32(a) {
     return function() {
       let t = a += 0x6D2B79F5;
@@ -399,7 +309,6 @@ select option{
   }
   function isAdj(r1,c1,r2,c2){ return Math.abs(r1-r2)<=1 && Math.abs(c1-c2)<=1; }
 
-  /* ===================== DOM ===================== */
   const boardEl = document.getElementById('board');
   const sizeSel = document.getElementById('size');
   const newBtn = document.getElementById('newBtn');
@@ -419,18 +328,15 @@ select option{
   const toastEl = document.getElementById('toast');
   const confettiEl = document.getElementById('confetti');
 
-  /* ===================== State ===================== */
   let N = 8;
   let seed = 0;
   let rng = Math.random;
 
-  // regionGrid: -1 grey, 0..N-1 colored region id
-  let regionGrid = [];
-  // cellState: 0 empty, 1 X, 2 Queen
-  let cellState = [];
+  let regionGrid = [];    // -1 grey, 0..N-1 colored region
+  let cellState = [];     // 0 empty, 1 X, 2 Queen
   let cells = [];
   let regionColors = [];
-  let solution = []; // [row] -> col for the unique solution
+  let solution = [];
 
   function toast(msg){
     toastEl.textContent = msg;
@@ -438,7 +344,6 @@ select option{
     window.clearTimeout(toastEl._t);
     toastEl._t = window.setTimeout(()=>toastEl.classList.remove('show'), 1400);
   }
-
   function setStatus(kind, text){
     statusText.textContent = text;
     statusDot.classList.remove('ok','bad');
@@ -449,7 +354,6 @@ select option{
   function initCellState(){
     cellState = Array.from({length:N}, ()=>Array(N).fill(0));
   }
-
   function countQueens(){
     let cnt=0;
     for(let r=0;r<N;r++) for(let c=0;c<N;c++) if(cellState[r][c]===2) cnt++;
@@ -461,7 +365,6 @@ select option{
     return out;
   }
 
-  /* ===================== Generation ===================== */
   function genBaseSolutionOnlyNoAdj(){
     const state = Array(N).fill(-1);
     const usedCols = new Set();
@@ -497,13 +400,11 @@ select option{
   function buildSparseRegionsFromSolution(sol){
     const grid = Array.from({length:N}, ()=>Array(N).fill(-1));
 
-    // region size 4 or 5
     const k = randInt(rng, 0, N + 1);
     const sizes = Array(N).fill(4);
     const ids = shuffle(rng, Array.from({length:N},(_,i)=>i));
     for(let i=0;i<k;i++) sizes[ids[i]]=5;
 
-    // seed each region at (row=regionId, col=solution[row])
     for(let reg=0; reg<N; reg++){
       grid[reg][sol[reg]] = reg;
     }
@@ -524,6 +425,7 @@ select option{
     let guard=0;
     while(true){
       guard++; if(guard>25000) return null;
+
       let done=true;
       for(let reg=0; reg<N; reg++){ if(cur[reg]<sizes[reg]){ done=false; break; } }
       if(done) break;
@@ -556,19 +458,17 @@ select option{
     return grid;
   }
 
+  /* ✅ 配色更分散：黃金角 + 交錯亮度 */
   function buildColors(){
-  // Golden angle palette: better separation than linear hue steps
-  const golden = 137.508; // degrees
-  regionColors = Array.from({length:N}, (_,i)=>{
-    const hue = (i * golden + (seed % 97)) % 360;
-    const sat = 82;
-    const light = (i % 2 === 0) ? 82 : 74; // alternate lightness for contrast
-    return `hsl(${hue} ${sat}% ${light}%)`;
-  });
-}
+    const golden = 137.508;
+    regionColors = Array.from({length:N}, (_,i)=>{
+      const hue = (i * golden + (seed % 97)) % 360;
+      const sat = 82;
+      const light = (i % 2 === 0) ? 82 : 74;
+      return `hsl(${hue} ${sat}% ${light}%)`;
+    });
+  }
 
-
-  // count solutions for REAL win condition (colored only), stop at 2
   function countSolutions(maxSolutions=2){
     let count=0;
     const colUsed=Array(N).fill(false);
@@ -596,7 +496,6 @@ select option{
     return count;
   }
 
-  /* ===================== UI Build ===================== */
   function buildBoard(){
     boardEl.innerHTML='';
     boardEl.style.gridTemplateColumns = `repeat(${N}, var(--cell))`;
@@ -613,7 +512,6 @@ select option{
           d.classList.add('grey');
         } else {
           d.style.background = regionColors[reg];
-          
         }
         d.addEventListener('click', ()=>cycleCell(r,c));
         boardEl.appendChild(d);
@@ -623,7 +521,7 @@ select option{
   }
 
   function cycleCell(r,c){
-    cellState[r][c] = (cellState[r][c] + 1) % 3; // empty->X->Q->empty
+    cellState[r][c] = (cellState[r][c] + 1) % 3;
     updateUI();
   }
 
@@ -643,7 +541,7 @@ select option{
 
     for(const [r,c] of queens){
       const reg=regionGrid[r][c];
-      if(reg===-1) bad.add(`${r},${c}`); // grey queen invalid
+      if(reg===-1) bad.add(`${r},${c}`);
       if(rowCount[r]>1 || colCount[c]>1) bad.add(`${r},${c}`);
       if(reg>=0 && regCount[reg]>1) bad.add(`${r},${c}`);
     }
@@ -661,19 +559,16 @@ select option{
   }
 
   function updateUI(){
-    // clear marks/conflict
     for(let r=0;r<N;r++){
       for(let c=0;c<N;c++){
         const d=cells[r][c];
         d.classList.remove('conflict');
-        // remove text nodes (X/Q)
         d.childNodes.forEach(node=>{
           if(node.nodeType===Node.TEXT_NODE) d.removeChild(node);
         });
       }
     }
 
-    // draw X/Q
     for(let r=0;r<N;r++){
       for(let c=0;c<N;c++){
         if(cellState[r][c]===1) cells[r][c].appendChild(document.createTextNode('X'));
@@ -696,9 +591,9 @@ select option{
     }).join(', ');
     posText.textContent=list;
 
-    if(qCnt===0){ setStatus('', '-'); }
-    else if(bad.size>0){ setStatus('bad', 'Conflict'); }
-    else { setStatus('ok', 'Clean'); }
+    if(qCnt===0) setStatus('', '-');
+    else if(bad.size>0) setStatus('bad','Conflict');
+    else setStatus('ok','Clean');
   }
 
   function clearAll(){
@@ -707,79 +602,54 @@ select option{
     setStatus('', '-');
   }
 
+  function confetti(){
+    confettiEl.innerHTML='';
+    const colors = ['#60a5fa','#34d399','#fbbf24','#f472b6','#a78bfa','#fb7185'];
+    for(let i=0;i<24;i++){
+      const p=document.createElement('i');
+      p.style.left = (Math.random()*100)+'vw';
+      p.style.top = (-10 - Math.random()*20)+'px';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.animationDelay = (Math.random()*120)+'ms';
+      confettiEl.appendChild(p);
+    }
+    window.setTimeout(()=>confettiEl.innerHTML='', 1200);
+  }
+
   function checkWin(){
     const queens=queenPositions();
     const bad=computeConflicts();
 
-    if(queens.length!==N){
-      setStatus('bad', `Need ${N} queens`);
-      toast(`👑 數量不對（${queens.length}/${N}）`);
-      return;
-    }
+    if(queens.length!==N){ setStatus('bad',`Need ${N}`); toast(`👑數量不對（${queens.length}/${N}）`); return; }
     for(const [r,c] of queens){
-      if(regionGrid[r][c]===-1){
-        setStatus('bad', 'Grey queen');
-        toast('灰色格上的 👑 不算過關');
-        return;
-      }
+      if(regionGrid[r][c]===-1){ setStatus('bad','Grey queen'); toast('灰色格上的 👑 不算過關'); return; }
     }
-    if(bad.size>0){
-      setStatus('bad', 'Conflict');
-      toast('有衝突（紅框處）');
-      return;
-    }
+    if(bad.size>0){ setStatus('bad','Conflict'); toast('有衝突（紅框處）'); return; }
 
-    // exactly 1 per row/col/region
     const row=Array(N).fill(0), col=Array(N).fill(0), reg=Array(N).fill(0);
-    for(const [r,c] of queens){
-      row[r]++; col[c]++; reg[regionGrid[r][c]]++;
-    }
+    for(const [r,c] of queens){ row[r]++; col[c]++; reg[regionGrid[r][c]]++; }
     for(let i=0;i<N;i++){
-      if(row[i]!==1 || col[i]!==1 || reg[i]!==1){
-        setStatus('bad','Not exact');
-        toast('行/列/區域需恰好 1 個 👑');
-        return;
-      }
+      if(row[i]!==1 || col[i]!==1 || reg[i]!==1){ setStatus('bad','Not exact'); toast('行/列/區域需恰好 1 個 👑'); return; }
     }
 
-    setStatus('ok', 'Solved!');
+    setStatus('ok','Solved!');
     toast('完成 ✅');
     confetti();
   }
 
   function reveal(){
     clearAll();
-    for(let r=0;r<N;r++){
-      cellState[r][solution[r]]=2;
-    }
+    for(let r=0;r<N;r++) cellState[r][solution[r]]=2;
     updateUI();
-    setStatus('ok', 'Revealed');
+    setStatus('ok','Revealed');
   }
 
-  /* ===================== Confetti ===================== */
-  function confetti(){
-    confettiEl.innerHTML='';
-    const colors = ['#60a5fa','#34d399','#fbbf24','#f472b6','#a78bfa','#fb7185'];
-    for(let i=0;i<24;i++){
-      const p=document.createElement('i');
-      const left = Math.random()*100;
-      p.style.left = left+'vw';
-      p.style.top = (-10 - Math.random()*20)+'px';
-      p.style.background = colors[Math.floor(Math.random()*colors.length)];
-      p.style.animationDelay = (Math.random()*120)+'ms';
-      p.style.transform = `translateY(-20px) rotate(${Math.random()*90}deg)`;
-      confettiEl.appendChild(p);
-    }
-    window.setTimeout(()=>confettiEl.innerHTML='', 1200);
-  }
-
-  /* ===================== Share / Daily / Seed ===================== */
   function getSeedFromUrl(){
     const u = new URL(window.location.href);
     const s = u.searchParams.get('seed');
     if(!s) return null;
     const n = Number(s);
-    if(Number.isFinite(n) && n>=0) return n >>> 0;
+    if(Number.isFinite(n) && n>=0) return n>>>0;
     return null;
   }
   function setSeedInUrl(s){
@@ -795,7 +665,6 @@ select option{
   function dailySeed(){
     const d = new Date();
     const y=d.getFullYear(), m=d.getMonth()+1, day=d.getDate();
-    // simple stable hash
     let x = (y*10000 + m*100 + day) >>> 0;
     x ^= 0x9e3779b9;
     x = Math.imul(x ^ (x >>> 16), 0x85ebca6b);
@@ -804,15 +673,10 @@ select option{
     return x;
   }
   async function copyLink(){
-    try{
-      await navigator.clipboard.writeText(window.location.href);
-      toast('連結已複製');
-    }catch{
-      toast('複製失敗（瀏覽器限制）');
-    }
+    try{ await navigator.clipboard.writeText(window.location.href); toast('連結已複製'); }
+    catch{ toast('複製失敗（瀏覽器限制）'); }
   }
 
-  /* ===================== Puzzle Generation (Unique Only) ===================== */
   function genPuzzle({forcedSeed=null}={}){
     setStatus('', 'Generating…');
 
@@ -834,7 +698,6 @@ select option{
 
       regionGrid = reg;
 
-      // unique filter
       const num = countSolutions(2);
       if(num !== 1) continue;
 
@@ -842,29 +705,20 @@ select option{
       initCellState();
       buildBoard();
       updateUI();
-
       setStatus('', '-');
       return true;
     }
-    setStatus('bad', 'Failed');
+    setStatus('bad','Failed');
     toast('生成失敗，請再按一次 New');
     return false;
   }
 
-  /* ===================== Events ===================== */
-  newBtn.addEventListener('click', ()=>{
-    removeSeedInUrl();
-    genPuzzle();
-  });
+  newBtn.addEventListener('click', ()=>{ removeSeedInUrl(); genPuzzle(); });
   clearBtn.addEventListener('click', ()=>{ clearAll(); toast('已清空'); });
   checkBtn.addEventListener('click', checkWin);
   solveBtn.addEventListener('click', ()=>{ reveal(); toast('顯示解'); });
 
-  shareBtn.addEventListener('click', ()=>{
-    // ensure seed is in URL so others get the same puzzle
-    setSeedInUrl(seed);
-    copyLink();
-  });
+  shareBtn.addEventListener('click', ()=>{ setSeedInUrl(seed); copyLink(); });
 
   dailyBtn.addEventListener('click', ()=>{
     const ds = dailySeed();
@@ -884,13 +738,9 @@ select option{
     if(e.key==='k' || e.key==='K'){ checkWin(); }
   });
 
-  // initial
   const urlSeed = getSeedFromUrl();
-  if(urlSeed !== null){
-    genPuzzle({forcedSeed: urlSeed});
-  } else {
-    genPuzzle();
-  }
+  if(urlSeed !== null) genPuzzle({forcedSeed: urlSeed});
+  else genPuzzle();
 })();
 </script>
 </body>

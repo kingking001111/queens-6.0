@@ -140,7 +140,7 @@
   .board{
   display:grid;
   gap: 0;
-  padding: 6px;
+  padding: 0;
   border-radius: 16px;
   border: 1px solid rgba(255,255,255,.14);
 
@@ -519,6 +519,13 @@
       for(let c=0;c<N;c++){
         const d=document.createElement('div');
         d.className='cell';
+
+        // ✅ 圓角只給最外層四格
+    if (r === 0 && c === 0) d.style.borderTopLeftRadius = '14px';
+    if (r === 0 && c === N - 1) d.style.borderTopRightRadius = '14px';
+    if (r === N - 1 && c === 0) d.style.borderBottomLeftRadius = '14px';
+    if (r === N - 1 && c === N - 1) d.style.borderBottomRightRadius = '14px';
+        
         const reg=regionGrid[r][c];
         if(reg===-1){
           d.classList.add('grey');

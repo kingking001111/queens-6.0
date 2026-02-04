@@ -137,16 +137,26 @@
 
     .boardWrap{ padding: 14px; display:flex; justify-content:center; }
 
-    .board{
+  .board{
   display:grid;
-  gap: 0;                 /* ✅ 取消用 gap 當線 */
-  padding: 6px;           /* ✅ 棋盤外圍留一圈深色邊框 */
+  gap: 0;
+  padding: 6px;
   border-radius: 16px;
-  border: 1px solid var(--border);
-  background: rgba(0,0,0,.38);  /* ✅ 你要的深色棋盤底 */
-  box-shadow: 0 8px 22px rgba(0,0,0,.30);
+  border: 1px solid rgba(255,255,255,.14);
+
+  /* ✅ 更像 queens-5.0 的質感深色底 */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.06), rgba(0,0,0,.26)),
+    rgba(0,0,0,.28);
+
+  box-shadow:
+    0 10px 26px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.10),
+    inset 0 -1px 0 rgba(0,0,0,.35);
+
   overflow:hidden;
 }
+
 
 
     .cell{
@@ -161,7 +171,7 @@
       transition: transform .06s ease, filter .15s ease;
       background: rgba(255,255,255,.04);
 
-      box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.18); /* ✅ 格線 */
+      box-shadow: inset 0 0 0 1.6px rgba(255,255,255,.20); /* ✅ 格線 */
     }
     .cell:hover{ filter: brightness(1.04); }
     .cell:active{ transform: scale(.985); }
@@ -543,7 +553,6 @@
 
     for(const [r,c] of queens){
       const reg=regionGrid[r][c];
-      if(reg===-1) bad.add(`${r},${c}`);
       if(rowCount[r]>1 || colCount[c]>1) bad.add(`${r},${c}`);
       if(reg>=0 && regCount[reg]>1) bad.add(`${r},${c}`);
     }
